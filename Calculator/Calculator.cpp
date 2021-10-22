@@ -210,6 +210,7 @@ void LG() {
 
 int main()
 {
+	cout << "/ * - + x(^2) s(sqrt) l(Ln) L(Log10)" << endl;
 	while (!_kbhit());
 	while (true) {
 		keyinput = _getch();
@@ -286,8 +287,8 @@ int main()
 			break;
 		}
 		system("cls");
+		cout << "/ * - + x(^2) s(sqrt) l(Ln) L(Log10)" << endl;
 		cout << Expression << endl;
-
 		switch (Operator) {
 		case 1:
 			cout << "/";
