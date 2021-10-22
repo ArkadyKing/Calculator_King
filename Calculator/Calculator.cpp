@@ -5,8 +5,8 @@
 using namespace std;
 using namespace CalcF;
 
-bool OperatorSelected = false, dot = false;
-int Operator = 0, OperationCompleted = 0, keyinput;
+bool OperatorSelected = false;
+int Operator = 0, OperationCompleted = 0, keyinput, Error=0;
 double a, b;
 string Expression = "";
 
@@ -75,7 +75,6 @@ void deleteDigit() {
 void ClearAll() {
 	Expression = "";
 	OperatorSelected = false;
-	dot = false;
 	OperationCompleted = 0;
 	Operator = 0;
 }
@@ -214,94 +213,106 @@ int main()
 	while (!_kbhit());
 	while (true) {
 		keyinput = _getch();
-		switch (keyinput) {
-		case 8:
-			deleteDigit();
-			break;
-		case 224:
+		if (Error == 0) {
+			switch (keyinput) {
+			case 8:
+				deleteDigit();
+				break;
+			case 224:
+				ClearAll();
+				break;
+			case 46:
+				printDot();
+				break;
+			case 48:
+				printZero();
+				break;
+			case 49:
+				printDigit('1');
+				break;
+			case 50:
+				printDigit('2');
+				break;
+			case 51:
+				printDigit('3');
+				break;
+			case 52:
+				printDigit('4');
+				break;
+			case 53:
+				printDigit('5');
+				break;
+			case 54:
+				printDigit('6');
+				break;
+			case 55:
+				printDigit('7');
+				break;
+			case 56:
+				printDigit('8');
+				break;
+			case 57:
+				printDigit('9');
+				break;
+			case 47:
+				DIVIDE();
+				break;
+			case 42:
+				MULTIPLY();
+				break;
+			case 45:
+				SUBSTRACT();
+				break;
+			case 43:
+				PLUS();
+				break;
+			case 115:
+			case 235:
+				SQR();
+				break;
+			case 120:
+			case 231:
+				XX();
+				break;
+			case 108:
+			case 164:
+				LN();
+				break;
+			case 76:
+			case 132:
+				LG();
+				break;
+			case 13:
+				EQ();
+				break;
+			}
+		}
+		else if (keyinput == 224) {
+			Error = 0;
 			ClearAll();
-			break;
-		case 46:
-			printDot();
-			break;
-		case 48:
-			printZero();
-			break;
-		case 49:
-			printDigit('1');
-			break;
-		case 50:
-			printDigit('2');
-			break;
-		case 51:
-			printDigit('3');
-			break;
-		case 52:
-			printDigit('4');
-			break;
-		case 53:
-			printDigit('5');
-			break;
-		case 54:
-			printDigit('6');
-			break;
-		case 55:
-			printDigit('7');
-			break;
-		case 56:
-			printDigit('8');
-			break;
-		case 57:
-			printDigit('9');
-			break;
-		case 47:
-			DIVIDE();
-			break;
-		case 42:
-			MULTIPLY();
-			break;
-		case 45:
-			SUBSTRACT();
-			break;
-		case 43:
-			PLUS();
-			break;
-		case 115:
-		case 235:
-			SQR();
-			break;
-		case 120:
-		case 231:
-			XX();
-			break;
-		case 108:
-		case 164:
-			LN();
-			break;
-		case 76:
-		case 132:
-			LG();
-			break;
-		case 13:
-			EQ();
-			break;
 		}
 		system("cls");
-		cout << "/ * - + x(^2) s(sqrt) l(Ln) L(Log10)" << endl;
-		cout << Expression << endl;
-		switch (Operator) {
-		case 1:
-			cout << "/";
-			break;
-		case 2:
-			cout << "*";
-			break;
-		case 3:
-			cout << "-";
-			break;
-		case 4:
-			cout << "+";
-			break;
+		if (isnan(a)) {
+			Error = 1;
+			cout << "Wrong operation, press 'del' button for clear";
+		}
+		else {
+			cout << "/ * - + x(^2) s(sqrt) l(Ln) L(Log10) del(clear)" << endl;
+			cout << Expression << endl;
+			switch (Operator) {
+			case 1:
+				cout << "/";
+				break;
+			case 2:
+				cout << "*";
+				break;
+			case 3:
+				cout << "-";
+				break;
+			case 4:
+				cout << "+";
+				break;
+			}
 		}
 	}
 }
