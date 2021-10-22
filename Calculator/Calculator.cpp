@@ -218,7 +218,7 @@ int main()
 			deleteDigit();
 			break;
 		case 224:
-			deleteDigit();
+			ClearAll();
 			break;
 		case 46:
 			printDot();
@@ -266,15 +266,19 @@ int main()
 			PLUS();
 			break;
 		case 115:
+		case 235:
 			SQR();
 			break;
 		case 120:
+		case 231:
 			XX();
 			break;
 		case 108:
+		case 164:
 			LN();
 			break;
 		case 76:
+		case 132:
 			LG();
 			break;
 		case 13:
