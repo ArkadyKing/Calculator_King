@@ -1,7 +1,9 @@
 ﻿#include <iostream>
 #include <conio.h>
 #include <string>
+#include "Header.h"
 using namespace std;
+using namespace CalcF;
 
 bool OperatorSelected = false, dot = false;
 int Operator = 0, OperationCompleted = 0, keyinput;
@@ -70,6 +72,141 @@ void deleteDigit() {
 	}
 }
 
+void ClearAll() {
+	Expression = "";
+	OperatorSelected = false;
+	dot = false;
+	OperationCompleted = 0;
+	Operator = 0;
+}
+
+void subEQ() {
+	Expression = to_string(a);
+	OperationCompleted = Operator;
+	Operator = 0;
+}
+void EQ() {
+	if (OperatorSelected == false && Expression != "" && Expression != "-") {
+
+		switch (OperationCompleted) {
+		case 0:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+			switch (Operator) {
+			case 0:
+				a = stod(Expression);
+				break;
+			case 1:
+				b = stod(Expression);
+				a = divF(a,b);
+				subEQ();
+				break;
+			case 2:
+				b = stod(Expression);
+				a = multF(a, b);
+				subEQ();
+				break;
+			case 3:
+				b = stod(Expression);
+				a = subF(a, b);
+				subEQ();
+				break;
+			case 4:
+				b = stod(Expression);
+				a = plusF(a, b);
+				subEQ();
+				break;
+			}
+			break;
+		case 1:
+			a = divF(a, b);
+			Expression = to_string(a);
+			break;
+		case 2:
+			a = divF(a, b);
+			Expression = to_string(a);
+			break;
+		case 3:
+			a = subF(a, b);
+			Expression = to_string(a);
+			break;
+		case 4:
+			a = plusF(a, b);
+			Expression = to_string(a);
+			break;
+		}
+
+	}
+}
+void DIVIDE() {
+	if (Expression != "" && Expression != "-") {
+		OperationCompleted = 0;
+		EQ();
+		OperatorSelected = true;
+		Operator = 1;
+	}
+}
+void MULTIPLY() {
+	if (Expression != "" && Expression != "-") {
+		OperationCompleted = 0;
+		EQ();
+		OperatorSelected = true;
+		Operator = 2;
+	}
+}
+void SUBSTRACT() {
+	if (Expression == "") {
+		Expression = "-";
+	}
+	else if (Expression != "" && Expression != "-") {
+		OperationCompleted = 0;
+		EQ();
+		OperatorSelected = true;
+		Operator = 3;
+	}
+}
+void PLUS() {
+	if (Expression == "-") {
+		Expression = "";
+	}
+	else if (Expression != "" && Expression != "-") {
+		OperationCompleted = 0;
+		EQ();
+		OperatorSelected = true;
+		Operator = 4;
+	}
+}
+void XX() {
+	if (Expression != "" && Expression != "-") {
+		Expression = to_string(xF(stod(Expression)));
+		OperationCompleted = 5;
+		OperatorSelected = false;
+	}
+}
+void SQR() {
+	if (Expression != "" && Expression != "-") {
+		Expression = to_string(sF(stod(Expression)));
+		OperationCompleted = 6;
+		OperatorSelected = false;
+	}
+}
+void LN() {
+	if (Expression != "" && Expression != "-") {
+		Expression = to_string(xF(stod(Expression)));
+		OperationCompleted = 7;
+		OperatorSelected = false;
+	}
+}
+void LG() {
+	if (Expression != "" && Expression != "-") {
+		Expression = to_string(log10(stod(Expression)));
+		OperationCompleted = 8;
+		OperatorSelected = false;
+	}
+}
+
 
 int main()
 {
@@ -78,6 +215,9 @@ int main()
 		keyinput = _getch();
 		switch (keyinput) {
 		case 8:
+			deleteDigit();
+			break;
+		case 224:
 			deleteDigit();
 			break;
 		case 46:
@@ -113,9 +253,50 @@ int main()
 		case 57:
 			printDigit('9');
 			break;
+		case 47:
+			DIVIDE();
+			break;
+		case 42:
+			MULTIPLY();
+			break;
+		case 45:
+			SUBSTRACT();
+			break;
+		case 43:
+			PLUS();
+			break;
+		case 115:
+			SQR();
+			break;
+		case 120:
+			XX();
+			break;
+		case 108:
+			LN();
+			break;
+		case 76:
+			LG();
+			break;
+		case 13:
+			EQ();
+			break;
 		}
 		system("cls");
-		cout << Expression;
+		cout << Expression << endl;
 
+		switch (Operator) {
+		case 1:
+			cout << "/";
+			break;
+		case 2:
+			cout << "*";
+			break;
+		case 3:
+			cout << "-";
+			break;
+		case 4:
+			cout << "+";
+			break;
+		}
 	}
 }
